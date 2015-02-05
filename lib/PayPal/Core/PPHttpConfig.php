@@ -41,7 +41,7 @@ class PPHttpConfig {
 	 * @param string $method  HTTP method (GET, POST etc) defaults to POST
 	 * @param array $configs All Configurations
 	 */
-	public function __construct($url=null, $method=self::HTTP_POST,, $configs = array()) {
+	public function __construct($url=null, $method=self::HTTP_POST,$configs = array()) {
 		$this->url = $url;
 		$this->method = $method;
 		$this->curlOptions = $this->getHttpConstantsFromConfigs($configs, 'http.') + self::$DEFAULT_CURL_OPTS;
