@@ -16,7 +16,7 @@ class PPHttpConfig {
 		CURLOPT_HTTPHEADER     => array(),
 		CURLOPT_SSL_VERIFYHOST => 2,
 		CURLOPT_SSL_VERIFYPEER => 1,
-        CURLOPT_SSL_CIPHER_LIST => 'TLSv1',
+                CURLOPT_SSL_CIPHER_LIST => 'TLSv1',
 	);	
 	
 	const HEADER_SEPARATOR = ';';	
@@ -39,11 +39,19 @@ class PPHttpConfig {
 	 * 
 	 * @param string $url
 	 * @param string $method  HTTP method (GET, POST etc) defaults to POST
+	 * @param array $configs All Configurations
 	 */
-	public function __construct($url=null, $method=self::HTTP_POST) {
+	public function __construct($url=null, $method=self::HTTP_POST,$configs = array()) {
 		$this->url = $url;
 		$this->method = $method;
-		$this->curlOptions = self::$DEFAULT_CURL_OPTS;
+		$this->curlOptions = $this->getHttpConstantsFromConfigs($configs, 'http.') + self::$DEFAULT_CURL_OPTS;
+		 // Update the Cipher List based on OpenSSL or NSS settings
+	        $curl = curl_version();
+	        $sslVersion = isset($curl['ssl_version']) ? $curl['ssl_version'] : '';
+	        if (substr_compare($sslVersion, "NSS/", 0, strlen("NSS/")) === 0) {
+	            //Remove the Cipher List for NSS
+	            $this->removeCurlOption(CURLOPT_SSL_CIPHER_LIST);
+	        }
 	}
 	
 	public function getUrl() {
@@ -94,6 +102,17 @@ class PPHttpConfig {
 	public function addCurlOption($name, $value) {
 		$this->curlOptions[$name] = $value;
 	}
+
+        /**
+	   * Removes a curl option from the list
+	   *
+	   * @param $name
+        */
+        public function removeCurlOption($name)
+        {
+          unset($this->curlOptions[$name]);
+        }
+ 
 
 	public function setCurlOptions($options) {
 		$this->curlOptions = $options;
@@ -156,4 +175,29 @@ class PPHttpConfig {
 	public function setUserAgent($userAgentString) {
 		$this->curlOptions[CURLOPT_USERAGENT] = $userAgentString;
 	}
+	
+	
+	 /**
+     * Retrieves an array of constant key, and value based on Prefix
+     *
+     * @param array $configs
+     * @param       $prefix
+     * @return array
+     */
+    public function getHttpConstantsFromConfigs($configs = array(), $prefix)
+    {
+        $arr = array();
+        if ($prefix != null && is_array($configs)) {
+            foreach ($configs as $k => $v) {
+                // Check if it startsWith
+                if (substr($k, 0, strlen($prefix)) === $prefix) {
+                    $newKey = ltrim($k, $prefix);
+                    if (defined($newKey)) {
+                        $arr[constant($newKey)] = $v;
+                    }
+                }
+            }
+        }
+        return $arr;
+    }
 }
