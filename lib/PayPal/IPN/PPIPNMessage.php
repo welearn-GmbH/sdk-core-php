@@ -132,6 +132,10 @@ class PPIPNMessage {
 	 * @return string
 	 */
 	public function getTransactionType() {
+		// Check if transaction_type present. Otherwise, use txn_type
+		if (!isset($this->ipnData['transaction_type'])) {
+			return $this->ipnData['txn_type'];
+		}
 		return $this->ipnData['transaction_type'];
 	}
 	
