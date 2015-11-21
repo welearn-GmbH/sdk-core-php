@@ -56,27 +56,36 @@ class PPUtils
 
 
 
-	/**
-	 * Get the local IP address. The client address is a required
-	 * request parameter for some API calls
-	 */
-	public static function getLocalIPAddress()
-	{
-		if (array_key_exists("SERVER_ADDR", $_SERVER)) {
-			// SERVER_ADDR is available only if we are running the CGI SAPI
-			return $_SERVER['SERVER_ADDR'];
+    /**
+     * Get the local IP address. The client address is a required
+     * request parameter for some API calls
+     */
+    public static function getLocalIPAddress()
+    {
+        if (array_key_exists("SERVER_ADDR", $_SERVER)) {
+            // SERVER_ADDR is available only if we are running the CGI SAPI
+            return $_SERVER['SERVER_ADDR'];
 
-		} else {
-			if (function_exists("gethostname")) {
-				// gethostname is available only in PHP >= v5.3
-				return gethostbyname(gethostname());
+        } else {
+            if (function_exists("gethostname") && self::isIPv4(gethostbyname(gethostname()))) {
+                return gethostbyname(gethostname());
 
-			} else {
-				// fallback if nothing works
-				return "127.0.0.1";
-			}
-		}
-	}
+            } else {
+                // fallback if nothing works
+                return "127.0.0.1";
+            }
+        }
+    }
+
+    /**
+     * Determines if valid IPv4 or not
+     *
+     * @param $ip
+     * @return bool
+     */
+    public static function isIPv4($ip) {
+        return filter_var($ip, FILTER_VALIDATE_IP , FILTER_FLAG_IPV4);
+    }
 
 	/**
 	 * Convert xml string to an intermediate nested array 
