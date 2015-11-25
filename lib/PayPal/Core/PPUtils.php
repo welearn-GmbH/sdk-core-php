@@ -54,26 +54,20 @@ class PPUtils
 		return false;
 	}
 
-
-
     /**
      * Get the local IP address. The client address is a required
      * request parameter for some API calls
      */
     public static function getLocalIPAddress()
     {
-        if (array_key_exists("SERVER_ADDR", $_SERVER)) {
+        if (array_key_exists("SERVER_ADDR", $_SERVER) && self::isIPv4($_SERVER['SERVER_ADDR'])) {
             // SERVER_ADDR is available only if we are running the CGI SAPI
             return $_SERVER['SERVER_ADDR'];
-
+        } else if(function_exists("gethostname") && self::isIPv4(gethostbyname(gethostname()))) {
+            return gethostbyname(gethostname());
         } else {
-            if (function_exists("gethostname") && self::isIPv4(gethostbyname(gethostname()))) {
-                return gethostbyname(gethostname());
-
-            } else {
-                // fallback if nothing works
-                return "127.0.0.1";
-            }
+            // fallback if nothing works
+            return "127.0.0.1";
         }
     }
 
