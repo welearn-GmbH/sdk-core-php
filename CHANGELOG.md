@@ -1,7 +1,7 @@
 
 # CHANGELOG
 
-## V3.2.2 (December 9, 2015)
+## V3.2.3 (December 9, 2015)
 
    * Added a `tls` mode to verify support for TLSv1.2
 
