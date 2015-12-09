@@ -155,9 +155,13 @@ class PPIPNMessage {
 			{
 				$url = PPConstants::IPN_LIVE_ENDPOINT;
 			}
+            else if (strtoupper($this->config['mode']) == 'TLS')
+            {
+                $url = PPConstants::IPN_TLS_ENDPOINT;
+            }
 			else
 			{
-				throw new PPConfigurationException('mode should be LIVE or SANDBOX');
+				throw new PPConfigurationException('mode should be LIVE, TLS or SANDBOX');
 			}
 		}
 		else

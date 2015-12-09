@@ -62,6 +62,10 @@ class PPPlatformServiceHandler extends PPGenericServiceHandler {
 			{
 				$endpoint = PPConstants::PLATFORM_LIVE_ENDPOINT;
 			}
+            else if(strtoupper($config['mode']) == 'TLS')
+            {
+                $endpoint = PPConstants::PLATFORM_TLS_ENDPOINT;
+            }
 		}
 		else
 		{

@@ -84,8 +84,10 @@ class PPOpenIdSession {
 				case 'SANDBOX':
 					return PPConstants::OPENID_REDIRECT_SANDBOX_URL;
 				case 'LIVE':
-					return PPConstants::OPENID_REDIRECT_LIVE_URL;	
-			}
+					return PPConstants::OPENID_REDIRECT_LIVE_URL;
+                case 'TLS':
+                    return PPConstants::OPENID_REDIRECT_TLS_URL;
+            }
 		}
 		return ;
 	}

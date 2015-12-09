@@ -38,8 +38,10 @@ class PPOpenIdHandler implements IPPHandler {
 					return PPConstants::REST_SANDBOX_ENDPOINT;
 				case 'LIVE':
 					return PPConstants::REST_LIVE_ENDPOINT;
+                case 'TLS':
+                    return PPConstants::REST_TLS_ENDPOINT;
 				default:
-					throw new PPConfigurationException('The mode config parameter must be set to either sandbox/live');
+					throw new PPConfigurationException('The mode config parameter must be set to either sandbox/live/tls');
 			}
 		} else {
 			throw new PPConfigurationException('You must set one of service.endpoint or mode parameters in your configuration');

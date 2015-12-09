@@ -124,8 +124,11 @@ class OAuthTokenCredential {
 				case 'LIVE':
 					$baseEndpoint = PPConstants::REST_LIVE_ENDPOINT;
 					break;
+                case 'TLS':
+                    $baseEndpoint = PPConstants::REST_TLS_ENDPOINT;
+                    break;
 				default:
-					throw new PPConfigurationException('The mode config parameter must be set to either sandbox/live');
+					throw new PPConfigurationException('The mode config parameter must be set to either sandbox/live/tls');
 			}
 		} else {
 			throw new PPConfigurationException('You must set one of service.endpoint or mode parameters in your configuration');

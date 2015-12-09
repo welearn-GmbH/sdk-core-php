@@ -70,7 +70,17 @@ class PPMerchantServiceHandler extends PPGenericServiceHandler {
 				{
 					$endpoint = PPConstants::MERCHANT_LIVE_CERT_ENDPOINT;
 				}
-			}
+			}else if(strtoupper($config['mode']) == 'TLS')
+            {
+                if($credential instanceof PPSignatureCredential)
+                {
+                    $endpoint = PPConstants::MERCHANT_TLS_SIGNATURE_ENDPOINT;
+                }
+                else if($credential instanceof PPCertificateCredential)
+                {
+                    $endpoint = PPConstants::MERCHANT_TLS_CERT_ENDPOINT;
+                }
+            }
 		}
 		else
 		{

@@ -18,4 +18,11 @@ class PPConstants {
     const REST_LIVE_ENDPOINT = "https://api.paypal.com/";
     const IPN_LIVE_ENDPOINT = "https://www.paypal.com/cgi-bin/webscr";
     const OPENID_REDIRECT_LIVE_URL = "https://www.paypal.com/webapps/auth/protocol/openidconnect";
+
+    const MERCHANT_TLS_SIGNATURE_ENDPOINT = "https://test-api-3t.sandbox.paypal.com/2.0";
+    const MERCHANT_TLS_CERT_ENDPOINT = "https://test-api.sandbox.paypal.com/2.0";
+    const PLATFORM_TLS_ENDPOINT = "https://test-svcs.sandbox.paypal.com/";
+    const REST_TLS_ENDPOINT = "https://test-api.sandbox.paypal.com/";
+    const IPN_TLS_ENDPOINT = "https://www.test-sandbox.paypal.com/cgi-bin/webscr";
+    const OPENID_REDIRECT_TLS_URL = "https://www.test-sandbox.paypal.com/webapps/auth/protocol/openidconnect";
 }
