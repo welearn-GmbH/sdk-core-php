@@ -1,6 +1,9 @@
 #### releasinator config ####
 configatron.product_name = "sdk-core-php"
 
+# Disabling validate:branch task as it checks for `master` branch to be default. We have `namespace-5.3`
+Rake::Task["validate:branch"].clear
+
 # List of items to confirm from the person releasing.  Required, but empty list is ok.
 configatron.prerelease_checklist_items = [
   "Sanity check the namespace-php-5.3 branch."
