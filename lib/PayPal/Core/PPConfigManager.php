@@ -44,11 +44,13 @@ class PPConfigManager {
 
 	//used to load the file
 	private function load($fileName) {
-
-        //Gracefully check for ini file
-        if(@parse_ini_file($fileName)) {
-            $this->config = @parse_ini_file($fileName);
-        }
+		//Gracefully check for ini file
+		$parsedConfig = @parse_ini_file($fileName);
+		if(!empty($parsedConfig)) {
+			$this->config = $parsedConfig;
+		} else {
+			$this->config = array();
+		}
 	}
 
 	/**
