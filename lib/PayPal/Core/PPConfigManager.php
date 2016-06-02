@@ -1,6 +1,6 @@
 <?php
 namespace PayPal\Core;
-use PayPal\Core\PPConfigManager;
+
 use PayPal\Exception\PPConfigurationException;
 /**
  * PPConfigManager loads the SDK configuration file and
@@ -23,14 +23,21 @@ class PPConfigManager {
 	 */
 	private static $instance;
 
-	private function __construct(){
-		if(defined('PP_CONFIG_PATH')) {
-			$configFile = constant('PP_CONFIG_PATH') . '/sdk_config.ini';
-		} else {		
+	private function __construct() {
+		$configFile = null;
+		if (defined('PP_CONFIG_PATH')) {
+			// if PP_CONFIG_PATH *is set* but not set to a string with length > 0
+			// then let's disable ini file loading
+			if (is_string(PP_CONFIG_PATH) && strlen(PP_CONFIG_PATH) > 0) {
+				$configFile = PP_CONFIG_PATH . DIRECTORY_SEPARATOR . 'sdk_config.ini';
+			}
+		} else {
 			$configFile = implode(DIRECTORY_SEPARATOR,
 				array(dirname(__FILE__), "..", "config", "sdk_config.ini"));
 		}
-		$this->load($configFile);
+		if (!is_null($configFile) && file_exists($configFile)) {
+			$this->load($configFile);
+		}
 	}
 
 	// create singleton object for PPConfigManager
@@ -44,11 +51,13 @@ class PPConfigManager {
 
 	//used to load the file
 	private function load($fileName) {
-
-        //Gracefully check for ini file
-        if(@parse_ini_file($fileName)) {
-            $this->config = @parse_ini_file($fileName);
-        }
+		//Gracefully check for ini file
+		$parsedConfig = @parse_ini_file($fileName);
+		if(!empty($parsedConfig)) {
+			$this->config = $parsedConfig;
+		} else {
+			$this->config = array();
+		}
 	}
 
 	/**
@@ -120,5 +129,3 @@ class PPConfigManager {
 				($config != null) ? $config : PPConfigManager::getInstance()->getConfigHashmap());
 	}
 }
-
-    
