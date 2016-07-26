@@ -9,5 +9,3 @@ class OAuthException
 {
     // pass
 }
-
-?>

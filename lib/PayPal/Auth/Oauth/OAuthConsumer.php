@@ -18,5 +18,3 @@ class OAuthConsumer
         return "OAuthConsumer[key=$this->key,secret=$this->secret]";
     }
 }
-
-?>
