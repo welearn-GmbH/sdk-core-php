@@ -23,7 +23,9 @@ class PPLoggingManager
 
     // Configured logging file
     private $loggerFile;
-
+    
+    //log message
+    private $loggerMessage;
     public function __construct($loggerName, $config = null)
     {
         $this->loggerName = $loggerName;
@@ -35,13 +37,22 @@ class PPLoggingManager
             $this->loggerFile   = ($config['log.FileName']) ? $config['log.FileName'] : ini_get('error_log');
             $loggingLevel       = strtoupper($config['log.LogLevel']);
             $this->loggingLevel = (isset($loggingLevel) && defined(__NAMESPACE__ . "\\PPLoggingLevel::$loggingLevel")) ? constant(__NAMESPACE__ . "\\PPLoggingLevel::$loggingLevel") : PPLoggingManager::DEFAULT_LOGGING_LEVEL;
+            register_shutdown_function(array($this,'flush'));
         }
     }
+
+ 
+    public function flush(){
+        if($this->loggerMessage){
+            error_log($this->loggerMessage,3,$this->loggerFile);
+        }
+    } 
+
 
     private function log($message, $level = PPLoggingLevel::INFO)
     {
         if ($this->isLoggingEnabled && ($level <= $this->loggingLevel)) {
-            error_log($this->loggerName . ": $message\n", 3, $this->loggerFile);
+            $this->loggerMessage .= $this->loggerName . ": $message\n";
         }
     }
 
