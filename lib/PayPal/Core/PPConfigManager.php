@@ -124,6 +124,7 @@ class PPConfigManager
      */
     public static function getConfigWithDefaults($config = null)
     {
+        if (!is_array(PPConfigManager::getInstance()->getConfigHashmap()) && $config == null) return PPConfigManager::$defaults;
         return array_merge(PPConfigManager::$defaults,
           ($config != null) ? $config : PPConfigManager::getInstance()->getConfigHashmap());
     }
