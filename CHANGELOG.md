@@ -1,6 +1,13 @@
 
 # CHANGELOG
 
+## 3.3.1 (Oct 3, 2016)
+   * Fixed license
+   * Enabled travis
+   * Bug fixes to PPConfigManager
+   * Fixed write in loggers
+   * PSR Formatting issues
+
 ## 3.3.0 (May 16, 2016)
    * Removed unused OAuthTokenCredential file
 
