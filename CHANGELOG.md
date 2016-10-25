@@ -1,6 +1,10 @@
 
 # CHANGELOG
 
+## 3.3.2 (Oct 25, 2016)
+   * Fixes issue with built-in types.
+   * Fixes token authorization bug.
+
 ## 3.3.1 (Oct 3, 2016)
    * Fixed license.
    * Enabled travis.
