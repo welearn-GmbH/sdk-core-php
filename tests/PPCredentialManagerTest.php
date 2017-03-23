@@ -24,6 +24,7 @@ class PPCredentialManagerTest extends \PHPUnit_Framework_TestCase
 			'acct3.ClientId' => 		'client-id',
 			'acct3.ClientSecret' => 	'client-secret',
 			'http.ConnectionTimeOut' => '30',
+			'http.TimeOut' => '60',
 			'http.Retry' => 			'5',
 			'service.RedirectURL' => 	'https://www.sandbox.paypal.com/webscr&cmd=',
 			'service.DevCentralURL' => 	'https://developer.paypal.com',
@@ -68,13 +69,13 @@ class PPCredentialManagerTest extends \PHPUnit_Framework_TestCase
 		$cred = $this->object->getCredentialObject('jb-us-seller_api1.paypal.com');
 		$this->assertNotNull($cred);
 		$this->assertEquals('jb-us-seller_api1.paypal.com', $cred->getUsername());
-		
+
 		$cred = $this->object->getCredentialObject('certuser_biz_api1.paypal.com');
 		$this->assertNotNull($cred);
 		$this->assertEquals('certuser_biz_api1.paypal.com', $cred->getUsername());
-		$this->assertStringEndsWith('cert_key.pem', $cred->getCertificatePath());		
+		$this->assertStringEndsWith('cert_key.pem', $cred->getCertificatePath());
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -83,7 +84,7 @@ class PPCredentialManagerTest extends \PHPUnit_Framework_TestCase
 		$this->setExpectedException('PayPal\Exception\PPInvalidCredentialException');
 		$cred = $this->object->getCredentialObject('invalid_biz_api1.gmail.com');
 	}
-		
+
 	/**
 	 * @test
 	 */
@@ -91,7 +92,7 @@ class PPCredentialManagerTest extends \PHPUnit_Framework_TestCase
 	{
 		$cred = $this->object->getCredentialObject();
 		$this->assertEquals('jb-us-seller_api1.paypal.com', $cred->getUsername());
-		
+
 		// Test to see if default account for REST credentials works
 		// as expected
 		$o = PPCredentialManager::getInstance(array(
@@ -105,8 +106,8 @@ class PPCredentialManagerTest extends \PHPUnit_Framework_TestCase
 		));
 		$cred = $o->getCredentialObject();
 		$this->assertEquals('client-id', $cred['clientId']);
-	}	
-	
+	}
+
 	/**
 	 * @test
 	 */
@@ -126,13 +127,13 @@ class PPCredentialManagerTest extends \PHPUnit_Framework_TestCase
 		$this->assertNotNull($cred->getThirdPartyAuthorization());
 		$this->assertEquals('PayPal\Auth\PPSubjectAuthorization', get_class($cred->getThirdPartyAuthorization()));
 	}
-	
+
 	/**
 	 * @test
 	 */
 	public function testGetRestCredentialObject() {
 		$cred = $this->object->getCredentialObject('acct3');
-	
+
 		$this->assertNotNull($cred);
 
 		$this->assertArrayHasKey('clientId', $cred);
@@ -141,7 +142,7 @@ class PPCredentialManagerTest extends \PHPUnit_Framework_TestCase
 		$this->assertArrayHasKey('clientSecret', $cred);
 		$this->assertEquals($this->config['acct3.ClientSecret'], $cred['clientSecret']);
 	}
-	
+
 	/**
 	 * @test
 	 */
