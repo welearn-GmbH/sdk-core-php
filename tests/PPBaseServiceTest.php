@@ -24,6 +24,7 @@ class PPBaseServiceTest extends \PHPUnit_Framework_TestCase
     		'acct2.CertPath' => 	'cert_key.pem'	,
     		'acct2.AppId' => 	'APP-80W284485P519543T'	,
     		'http.ConnectionTimeOut' => 	'30'	,
+    		'http.TimeOut' => 	'60'	,
     		'http.Retry' => 	'5'	,
     		'service.RedirectURL' => 	'https://www.sandbox.paypal.com/webscr&cmd='	,
     		'service.DevCentralURL' => 'https://developer.paypal.com'	,
