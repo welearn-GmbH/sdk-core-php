@@ -78,16 +78,4 @@ class PPAPIServiceTest extends \PHPUnit_Framework_TestCase
 	$req = new PPRequest(new MockNVPClass(), "NV");
 	$this->object->makeRequest('GetInvoiceDetails', $req);
     }
-
-    /**
-     * @test
-     */
-    public function testMakeRequestWithHandlers() {
-    	$this->object->addHandler(new MockHandler());
-	$req = new PPRequest(new MockNVPClass(), "NV");
-    	$ret = $this->object->makeRequest('GetInvoiceDetails', $req);
-
-    	$this->assertArrayHasKey('response', $ret);
-    	$this->assertContains("responseEnvelope.timestamp=", $ret['response']);
-    }
 }

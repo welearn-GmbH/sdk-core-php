@@ -61,45 +61,4 @@ class PPBaseServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Invoice', $this->object->getServiceName() );
     }
 
-    /**
-     * @test
-     */
-    public function testMakeRequestWithHandlers() {
-        $req = new MockNVPClass();
-    	$ret = $this->object->call(null, 'GetInvoiceDetails', $req, null);
-    	$this->assertContains("responseEnvelope.timestamp=", $ret);
-    	$this->assertEquals($req->toNVPString(), $this->object->getLastRequest());
-    	$this->assertEquals($ret, $this->object->getLastResponse());
-
-    }
-
-    public function testMakeRequestWithServiceHandlerAndCallHandler()
-    {
-        $handler = $this->getMock('\PayPal\Handler\IPPHandler');
-        $handler
-            ->expects($this->once())
-            ->method('handle');
-
-        $req = new MockNVPClass();
-        $ret = $this->object->call(null, 'GetInvoiceDetails', $req, null, array($handler));
-    }
-
-    public function testMultipleCallsDoesntIncludePreviousCallHandlers()
-    {
-        $firstHandler = $this->getMock('\PayPal\Handler\IPPHandler');
-        $firstHandler
-            ->expects($this->once())
-            ->method('handle');
-
-        $req = new MockNVPClass();
-        $ret = $this->object->call(null, 'GetInvoiceDetails', $req, null, array($firstHandler));
-
-        $secondHandler = $this->getMock('\PayPal\Handler\IPPHandler');
-        $secondHandler
-            ->expects($this->once())
-            ->method('handle');
-
-        $req = new MockNVPClass();
-        $ret = $this->object->call(null, 'GetInvoiceDetails', $req, null, array($secondHandler));
-    }
 }

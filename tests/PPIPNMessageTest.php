@@ -13,28 +13,6 @@ class PPIPNMessageTest extends \PHPUnit_Framework_TestCase {
 	public function passGoodIPN() {
 		
 	}
-	
-	/**
-	 * @test
-	 */
-	public function testIPNWithCustomConfig() {
-		$ipnData = "id=123&item=oreo's";
-		$ipn = new PPIPNMessage($ipnData, array('mode' => 'sandbox'));
-		$this->assertEquals(false, $ipn->validate());
-
-		$ipnData = "id=123&item=oreo's";
-		$ipn = new PPIPNMessage($ipnData, array('mode' => 'live'));
-		$this->assertEquals(false, $ipn->validate());
-
-		$ipnData = "id=123&item=oreo's";
-		$ipn = new PPIPNMessage($ipnData, array('service.EndPoint.IPN' => PPConstants::IPN_SANDBOX_ENDPOINT));
-		$this->assertEquals(false, $ipn->validate());
-
-		$this->setExpectedException('PayPal\Exception\PPConfigurationException');
-		$ipn = new PPIPNMessage($ipnData, array('mode' => 'invalid'));
-		$ipn->validate();
-
-	}
 
 	/**
 	 * @test
@@ -58,15 +36,6 @@ class PPIPNMessageTest extends \PHPUnit_Framework_TestCase {
 		$ipn = new PPIPNMessage($ipnData, array('mode' => 'sandbox'));
 		$this->assertEquals(123, $ipn->getTransactionId());
 	}
-	
-	/**
-	 * @test
-	 */
-	public function failOnBadIPN() {
-		$ipn = new PPIPNMessage();
-		$this->assertEquals(false, $ipn->validate());
-	}
-	
 	
 	/**
 	 * @test
