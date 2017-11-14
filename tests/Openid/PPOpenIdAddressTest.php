@@ -1,11 +1,12 @@
-<?php 
+<?php
 use PayPal\Auth\Openid\PPOpenIdAddress;
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPOpenIdAddress.
  *
  */
-class PPOpenIdAddressTest extends \PHPUnit_Framework_TestCase {
-	
+class PPOpenIdAddressTest extends TestCase {
+
 	private $addr;
 
 	/**
@@ -15,7 +16,7 @@ class PPOpenIdAddressTest extends \PHPUnit_Framework_TestCase {
 	protected function setUp() {
 		$this->addr = self::getTestData();
 	}
-	
+
 	/**
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
@@ -23,7 +24,7 @@ class PPOpenIdAddressTest extends \PHPUnit_Framework_TestCase {
 	protected function tearDown()
 	{
 	}
-	
+
 	public static function getTestData() {
 		$addr = new PPOpenIdAddress();
 		$addr->setCountry("US")->setLocality("San Jose")
@@ -31,14 +32,14 @@ class PPOpenIdAddressTest extends \PHPUnit_Framework_TestCase {
 		->setStreetAddress("1, North 1'st street");
 		return $addr;
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function testSerializationDeserialization() {				
+	public function testSerializationDeserialization() {
 		$addrCopy = new PPOpenIdAddress();
 		$addrCopy->fromJson($this->addr->toJson());
-		
+
 		$this->assertEquals($this->addr, $addrCopy);
 	}
 }

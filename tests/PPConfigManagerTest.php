@@ -1,10 +1,11 @@
 <?php
 use PayPal\Core\PPConfigManager;
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPConfigManager.
  *
  */
-class PPConfigManagerTest extends \PHPUnit_Framework_TestCase
+class PPConfigManagerTest extends TestCase
 {
 	/**
 	 * @var PPConfigManager

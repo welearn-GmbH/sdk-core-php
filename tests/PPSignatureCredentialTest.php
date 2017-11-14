@@ -2,11 +2,12 @@
 use PayPal\Auth\PPSignatureCredential;
 use PayPal\Auth\PPTokenAuthorization;
 use PayPal\Auth\PPSubjectAuthorization;
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPSignatureCredential.
  *
  */
-class PPSignatureCredentialTest extends PHPUnit_Framework_TestCase
+class PPSignatureCredentialTest extends TestCase
 {
 	/**
 	 * @var PPSignatureCredential
@@ -83,14 +84,14 @@ class PPSignatureCredentialTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertEquals('APP-80W284485P519543T', $this->platformCredential->getApplicationId());
 	}
-	
+
 	public function testThirdPartyAuthorization() {
 		$authorizerEmail = "merchant@domain.com";
-		$thirdPartyAuth = new PPSubjectAuthorization($authorizerEmail);		
+		$thirdPartyAuth = new PPSubjectAuthorization($authorizerEmail);
 		$cred = new PPSignatureCredential("username", "pwd", "signature");
-		$cred->setThirdPartyAuthorization($thirdPartyAuth);		
+		$cred->setThirdPartyAuthorization($thirdPartyAuth);
 		$this->assertEquals($cred->getThirdPartyAuthorization()->getSubject(), $authorizerEmail);
-		
+
 		$accessToken = "atoken";
 		$tokenSecret = "asecret";
 		$thirdPartyAuth = new PPTokenAuthorization($accessToken, $tokenSecret);

@@ -1,10 +1,11 @@
 <?php
 use PayPal\Core\PPRequest;
 use PayPal\Formatter\PPNVPFormatter;
-class PPNVPFormatterTest extends PHPUnit_Framework_TestCase {
-	
+use PHPUnit\Framework\TestCase;
+class PPNVPFormatterTest extends TestCase {
+
 	private $object;
-	
+
 	public function setup() {
 		$this->object = new PPNVPFormatter();
 	}
@@ -17,7 +18,7 @@ class PPNVPFormatterTest extends PHPUnit_Framework_TestCase {
 				$this->object->toString(new PPRequest($data, 'NVP'))
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */

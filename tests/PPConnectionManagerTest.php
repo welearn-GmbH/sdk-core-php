@@ -2,11 +2,12 @@
 use PayPal\Core\PPConnectionManager;
 use PayPal\Core\PPHttpConnection;
 use PayPal\Core\PPHttpConfig;
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPConnectionManager.
  *
  */
-class PPConnectionManagerTest extends \PHPUnit_Framework_TestCase
+class PPConnectionManagerTest extends TestCase
 {
     /**
      * @var PPConnectionManager

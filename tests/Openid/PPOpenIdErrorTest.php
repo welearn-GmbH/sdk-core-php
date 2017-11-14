@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 use PayPal\Auth\Openid\PPOpenIdError;
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPOpenIdError.
  *
  */
-class PPOpenIdErrorTest extends PHPUnit_Framework_TestCase {
-	
+class PPOpenIdErrorTest extends TestCase {
+
 	private $error;
 
 	/**
@@ -19,7 +20,7 @@ class PPOpenIdErrorTest extends PHPUnit_Framework_TestCase {
 			->setErrorUri('http://developer.paypal.com/api/error')
 			->setError('VALIDATION_ERROR');
 	}
-	
+
 	/**
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
@@ -27,14 +28,14 @@ class PPOpenIdErrorTest extends PHPUnit_Framework_TestCase {
 	protected function tearDown()
 	{
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function testSerializationDeserialization() {				
+	public function testSerializationDeserialization() {
 		$errorCopy = new PPOpenIdError();
 		$errorCopy->fromJson($this->error->toJson());
-		
+
 		$this->assertEquals($this->error, $errorCopy);
 	}
 }

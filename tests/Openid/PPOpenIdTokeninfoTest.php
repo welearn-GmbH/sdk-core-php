@@ -1,12 +1,12 @@
-<?php 
+<?php
 use PayPal\Auth\Openid\PPOpenIdTokeninfo;
-
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPOpenIdTokeninfo.
  *
  */
-class PPOpenIdTokeninfoTest extends \PHPUnit_Framework_TestCase {
-	
+class PPOpenIdTokeninfoTest extends TestCase {
+
 	public $token;
 
 	/**
@@ -22,7 +22,7 @@ class PPOpenIdTokeninfoTest extends \PHPUnit_Framework_TestCase {
 					->setScope("openid address")
 					->setTokenType("Bearer");
 	}
-	
+
 	/**
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
@@ -30,17 +30,17 @@ class PPOpenIdTokeninfoTest extends \PHPUnit_Framework_TestCase {
 	protected function tearDown()
 	{
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function testSerializationDeserialization() {				
+	public function testSerializationDeserialization() {
 		$tokenCopy = new PPOpenIdTokeninfo();
 		$tokenCopy->fromJson($this->token->toJson());
-		
+
 		$this->assertEquals($this->token, $tokenCopy);
 	}
-	
+
 	/**
 	 * @t1est
 	 */

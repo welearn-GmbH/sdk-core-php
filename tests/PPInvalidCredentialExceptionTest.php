@@ -1,10 +1,11 @@
 <?php
 use PayPal\Exception\PPInvalidCredentialException;
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPInvalidCredentialException.
  *
  */
-class PPInvalidCredentialExceptionTest extends \PHPUnit_Framework_TestCase
+class PPInvalidCredentialExceptionTest extends TestCase
 {
     /**
      * @var PPInvalidCredentialException

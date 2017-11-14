@@ -1,11 +1,12 @@
 <?php
 use PayPal\Auth\Openid\PPOpenIdUserinfo;
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPOpenIdUserinfo.
  *
  */
-class PPOpenIdUserinfoTest extends \PHPUnit_Framework_TestCase {
-	
+class PPOpenIdUserinfoTest extends TestCase {
+
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -14,7 +15,7 @@ class PPOpenIdUserinfoTest extends \PHPUnit_Framework_TestCase {
 	protected function setUp()
 	{
 	}
-	
+
 	/**
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
@@ -22,7 +23,7 @@ class PPOpenIdUserinfoTest extends \PHPUnit_Framework_TestCase {
 	protected function tearDown()
 	{
 	}
-	
+
 
 	/**
 	 * @test
@@ -39,13 +40,13 @@ class PPOpenIdUserinfoTest extends \PHPUnit_Framework_TestCase {
 			->setVerified(true)->setVerifiedAccount(true)
 			->setZoneinfo("America/PST")->setLanguage('en_US')
 			->setAddress(PPOpenIdAddressTest::getTestData());
-		
+
 		$userCopy = new PPOpenIdUserinfo();
 		$userCopy->fromJson($user->toJSON());
-		
+
 		$this->assertEquals($user, $userCopy);
 	}
-	
+
 	/**
 	 * @test
 	 */
