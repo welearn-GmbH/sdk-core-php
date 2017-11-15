@@ -1,7 +1,8 @@
 <?php
 use PayPal\Formatter\FormatterFactory;
-class FormatterFactoryTest extends PHPUnit_Framework_TestCase {
-	
+use PHPUnit\Framework\TestCase;
+class FormatterFactoryTest extends TestCase {
+
 	/**
 	 * @test
 	 */
@@ -9,7 +10,7 @@ class FormatterFactoryTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('PayPal\Formatter\PPNVPFormatter', get_class(FormatterFactory::factory('NV')));
 		$this->assertEquals('PayPal\Formatter\PPSOAPFormatter', get_class(FormatterFactory::factory('SOAP')));
 	}
-	
+
 	/**
 	 * @test
 	 */

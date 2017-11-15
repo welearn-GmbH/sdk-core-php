@@ -1,10 +1,11 @@
 <?php
 use PayPal\Core\PPHttpConfig;
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPAPIService.
  *
  */
-class PPHttpConfigTest extends PHPUnit_Framework_TestCase
+class PPHttpConfigTest extends TestCase
 {
 
     protected $object;

@@ -5,13 +5,13 @@ require_once 'Mocks.php';
 use PayPal\Core\PPAPIService;
 use PayPal\Core\PPRequest;
 use PayPal\Common\PPApiContext;
-
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test class for PPAPIService.
  *
  */
-class PPAPIServiceTest extends \PHPUnit_Framework_TestCase
+class PPAPIServiceTest extends TestCase
 {
     /**
      * @var PPAPIService

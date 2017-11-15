@@ -1,10 +1,11 @@
 <?php
 use PayPal\Core\PPUtils;
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPUtils.
  *
  */
-class PPUtilsTest extends \PHPUnit_Framework_TestCase
+class PPUtilsTest extends TestCase
 {
     /**
      * @var PPUtils
@@ -46,10 +47,10 @@ class PPUtilsTest extends \PHPUnit_Framework_TestCase
     {
 	$arr = array('key1' => 'somevalue', 'key2' => 'someothervalue');
 	$this->assertEquals(true, PPUtils::array_match_key($arr, "key"));
-		
+
 		$arr = array('key1' => 'somevalue', 'key2' => 'someothervalue');
 		$this->assertEquals(false, PPUtils::array_match_key($arr, "prefix"));
-		
+
 		$arr = unserialize('a:10:{s:26:"responseEnvelope.timestamp";s:35:"2011-04-19T04%3A32%3A29.469-07%3A00";s:20:"responseEnvelope.ack";s:7:"Failure";s:30:"responseEnvelope.correlationId";s:13:"c2514f258ddf1";s:22:"responseEnvelope.build";s:7:"1829457";s:16:"error(0).errorId";s:6:"580027";s:15:"error(0).domain";s:8:"PLATFORM";s:17:"error(0).severity";s:5:"Error";s:17:"error(0).category";s:11:"Application";s:16:"error(0).message";s:44:"Prohibited+request+parameter%3A+businessInfo";s:21:"error(0).parameter(0)";s:12:"businessInfo";}');
 		$this->assertEquals(true, PPUtils::array_match_key($arr, "error(0)."));
     }
@@ -61,7 +62,7 @@ class PPUtilsTest extends \PHPUnit_Framework_TestCase
     {
         $ip = $this->object->getLocalIPAddress();
         $this->assertEquals($ip, filter_var($ip, FILTER_VALIDATE_IP));
-        
+
         $_SERVER['SERVER_ADDR'] = '127.0.0.1';
         $ip = $this->object->getLocalIPAddress();
         $this->assertEquals($ip, filter_var($ip, FILTER_VALIDATE_IP));
@@ -81,22 +82,22 @@ class PPUtilsTest extends \PHPUnit_Framework_TestCase
 		. '</SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
     	$ret = PPUtils::xmlToArray($xml);
-    	
+
         $this->assertEquals("SetExpressCheckoutResponse", $ret[0]['name']);
 
         $ret = $ret[0]['children'];
     	$this->assertEquals(6, count($ret));
-    	
+
 	// Token node
     	$this->assertFalse(array_key_exists('children', $ret[5]));
     	$this->assertEquals("Token", $ret[5]['name']);
     	$this->assertEquals("EC-6KT84265CE1992425", $ret[5]['text']);
-    	
+
     	$this->assertEquals(1, count($ret[5]['attributes']));
     	$k = key($ret[5]['attributes']);
     	$this->assertEquals("attrib", $k);
     	$this->assertEquals("someValue", $ret[5]['attributes'][$k]);
-    	
+
     	// Ack Node
     	$this->assertEquals("Ack", $ret[1]['name']);
     	$this->assertEquals(1, count($ret[1]['children']));
@@ -127,7 +128,7 @@ class PPUtilsTest extends \PHPUnit_Framework_TestCase
     	$this->assertEquals('fieldWithSpecialChar', $ret['fieldwith-specialchar']);
 
     }
-    
+
     /**
      * @test
      */
@@ -139,7 +140,7 @@ class PPUtilsTest extends \PHPUnit_Framework_TestCase
     	$this->assertEquals(true, PPUtils::isPropertyArray('MockReflectionTestType', 'arrayMember'));
     	$this->assertEquals(false, PPUtils::isPropertyArray('MockReflectionTestType', 'value'));
     }
-    
+
     /**
      * @test
      */

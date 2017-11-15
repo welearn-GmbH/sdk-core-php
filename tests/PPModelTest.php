@@ -1,6 +1,7 @@
 <?php
 
 use PayPal\Common\PPModel;
+use PHPUnit\Framework\TestCase;
 
 class SimpleModelTestClass extends PPModel {
 	/**
@@ -12,7 +13,7 @@ class SimpleModelTestClass extends PPModel {
 		$this->field1 = $field1;
 		return $this;
 	}
-	
+
 	/**
 	 *
 	 * @access public
@@ -21,7 +22,7 @@ class SimpleModelTestClass extends PPModel {
 	public function getField1() {
 		return $this->field1;
 	}
-	
+
 	/**
 	 *
 	 * @access public
@@ -31,7 +32,7 @@ class SimpleModelTestClass extends PPModel {
 		$this->field2 = $field2;
 		return $this;
 	}
-	
+
 	/**
 	 *
 	 * @access public
@@ -40,7 +41,7 @@ class SimpleModelTestClass extends PPModel {
 	public function getField2() {
 		return $this->field2;
 	}
-	
+
 }
 
 
@@ -134,23 +135,23 @@ class ListModelTestClass extends PPModel {
  * Test class for PPModel.
  *
  */
-class PPModelTest extends PHPUnit_Framework_TestCase
+class PPModelTest extends TestCase
 {
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
-		
+
 	}
-	
+
 	/**
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 */
 	protected function tearDown() {
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -158,15 +159,15 @@ class PPModelTest extends PHPUnit_Framework_TestCase
 		$o = new SimpleModelTestClass();
 		$o->setField1('value 1');
 		$o->setField2("value 2");
-		
+
 		$this->assertEquals('{"field1":"value 1","field2":"value 2"}', $o->toJSON());
-		
+
 		$oCopy = new SimpleModelTestClass();
-		$oCopy->fromJson($o->toJSON());		
+		$oCopy->fromJson($o->toJSON());
 		$this->assertEquals($o, $oCopy);
-				
+
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -174,16 +175,16 @@ class PPModelTest extends PHPUnit_Framework_TestCase
 		$o = new SimpleModelTestClass();
 		$o->setField1('value "1');
 		$o->setField2("value 2");
-	
+
 		$this->assertEquals('{"field1":"value \"1","field2":"value 2"}', $o->toJSON());
-	
+
 		$oCopy = new SimpleModelTestClass();
 		$oCopy->fromJson($o->toJSON());
 		$this->assertEquals($o, $oCopy);
-	
+
 	}
-	
-	
+
+
 	/**
 	 * @test
 	 */
@@ -191,38 +192,38 @@ class PPModelTest extends PHPUnit_Framework_TestCase
 		$child = new SimpleModelTestClass();
 		$child->setField1('value 1');
 		$child->setField2("value 2");
-		
+
 		$parent = new ContainerModelTestClass();
 		$parent->setField1("parent");
 		$parent->setNested1($child);
-	
-		$this->assertEquals('{"field1":"parent","nested1":{"field1":"value 1","field2":"value 2"}}', 
+
+		$this->assertEquals('{"field1":"parent","nested1":{"field1":"value 1","field2":"value 2"}}',
 				$parent->toJSON());
-	
+
 		$parentCopy = new ContainerModelTestClass();
 		$parentCopy->fromJson($parent->toJSON());
 		$this->assertEquals($parent, $parentCopy);
-	
+
 	}
-	
-	
+
+
 	/**
 	 * @test
 	 */
 	public function testListConversion() {
 		$c1 = new SimpleModelTestClass();
 		$c1->setField1("a")->setField2('value');
-		
+
 		$c2 = new SimpleModelTestClass();
 		$c1->setField1("another")->setField2('object');
-		
+
 		$parent = new ListModelTestClass();
 		$parent->setList1(array('simple', 'list', 'with', 'integer', 'keys'));
 		$parent->setList2(array($c1, $c2));
-		
+
 		$parentCopy = new ListModelTestClass();
 		$parentCopy->fromJson($parent->toJSON());
 		$this->assertEquals($parent, $parentCopy);
-	
+
 	}
 }

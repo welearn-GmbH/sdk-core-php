@@ -1,17 +1,18 @@
 <?php
 use PayPal\IPN\PPIPNMessage;
 use PayPal\Core\PPConstants;
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPIPNMessage.
  *
  */
-class PPIPNMessageTest extends \PHPUnit_Framework_TestCase {
+class PPIPNMessageTest extends TestCase {
 	/**
 	 * @test
 	 */
-	
+
 	public function passGoodIPN() {
-		
+
 	}
 
 	/**
@@ -36,35 +37,35 @@ class PPIPNMessageTest extends \PHPUnit_Framework_TestCase {
 		$ipn = new PPIPNMessage($ipnData, array('mode' => 'sandbox'));
 		$this->assertEquals(123, $ipn->getTransactionId());
 	}
-	
+
 	/**
 	 * @test
 	 */
 	public function processIPNWithArrayElements() {
 		$ipnData = 'transaction[0].id=6WM123443434&transaction[0].status=Completed&transaction[1].id=2F12129812A1&transaction[1].status=Pending';
 		$ipn = new PPIPNMessage($ipnData);
-		
+
 		$rawData = $ipn->getRawData();
 		$this->assertEquals(4, count($rawData));
 		$this->assertEquals('6WM123443434', $rawData['transaction[0].id']);
 	}
-	
+
 	/**
 	 * @test
-	 */	
+	 */
 	public function processIPNWithSpecialCharacters() {
 		$ipnData = "description=Jake's store";
-		
+
 		ini_set('get_magic_quotes_gpc', true);
 		$ipn = new PPIPNMessage($ipnData);
-		$rawData = $ipn->getRawData();		
+		$rawData = $ipn->getRawData();
 		$this->assertEquals($rawData['description'], "Jake's store");
-		
+
 		ini_set('get_magic_quotes_gpc', false);
 		$ipn = new PPIPNMessage($ipnData);
 		$rawData = $ipn->getRawData();
 		$this->assertEquals($rawData['description'], "Jake's store");
 		$this->assertEquals($rawData['description'], "Jake's store");
 	}
-	
+
 }

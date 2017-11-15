@@ -1,11 +1,12 @@
 <?php
 use PayPal\Auth\PPCertificateCredential;
 use PayPal\Exception\PPMissingCredentialException;
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPCertificateCredential.
  *
  */
-class PPCertificateCredentialTest extends \PHPUnit_Framework_TestCase
+class PPCertificateCredentialTest extends TestCase
 {
 	/**
 	 * @var PPCertificateCredential

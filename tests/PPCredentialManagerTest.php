@@ -1,10 +1,11 @@
 <?php
 use PayPal\Core\PPCredentialManager;
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPCredentialManager.
  *
  */
-class PPCredentialManagerTest extends \PHPUnit_Framework_TestCase
+class PPCredentialManagerTest extends TestCase
 {
 	/**
 	 * @var PPCredentialManager

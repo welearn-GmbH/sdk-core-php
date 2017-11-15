@@ -3,11 +3,12 @@
 require_once 'Mocks.php';
 
 use PayPal\Core\PPBaseService;
+use PHPUnit\Framework\TestCase;
 /**
  * Test class for PPBaseService.
  *
  */
-class PPBaseServiceTest extends \PHPUnit_Framework_TestCase
+class PPBaseServiceTest extends TestCase
 {
     /**
      * @var PPBaseService
